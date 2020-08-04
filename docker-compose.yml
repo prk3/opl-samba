@@ -1,0 +1,19 @@
+version: "3"
+services:
+  opl-samba:
+    build:
+      context: ./
+    ports:
+      # Samba sends data over this port.
+      - "445:445"
+      # The following ports are used for samba server discovery.
+      # You don't need to expose them if your OPL connects to the server using static IP.
+      # - "139:139"
+      # - "138:138"
+      # - "137:137"
+    volumes:
+      # Link samba config file.
+      - "./smb.conf:/etc/samba/smb.conf:z"
+      # Mount OPL folder to /PS2SMB.
+      # Update first path with the opl folder location on the host.
+      - "/home/user/PS2SMB:/PS2SMB:z"
