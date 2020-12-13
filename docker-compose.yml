@@ -13,7 +13,7 @@ services:
       # - "137:137"
     volumes:
       # Link samba config file.
-      - "./smb.conf:/etc/samba/smb.conf:z"
-      # Mount OPL folder to /PS2SMB.
+      - "./smb.conf:/etc/samba/smb.conf"
+      # Mount OPL folder to /var/PS2SMB.
       # Update first path with the opl folder location on the host.
-      - "/home/user/PS2SMB:/PS2SMB:z"
+      - "/home/user/PS2SMB:/var/PS2SMB"

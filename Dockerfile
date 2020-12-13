@@ -1,6 +1,6 @@
-FROM alpine:3.12
+FROM alpine:3.11
 
-ARG SAMBA_VERSION='4.12.2-r1'
+ARG SAMBA_VERSION=4.11.16-r0
 
 RUN apk add "samba=${SAMBA_VERSION}"
 
