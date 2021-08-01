@@ -2,7 +2,14 @@ FROM alpine:3.11
 
 ARG SAMBA_VERSION=4.11.16-r0
 
+ENV FORCE_USER_ID=0
+ENV FORCE_GROUP_ID=0
+
 RUN apk add "samba=${SAMBA_VERSION}"
+
+WORKDIR /etc/samba
+COPY samba .
+RUN chmod +x samba.sh
 
 EXPOSE 445/tcp
 EXPOSE 445/udp
@@ -16,5 +23,5 @@ EXPOSE 138/udp
 EXPOSE 137/tcp
 EXPOSE 137/udp
 
-CMD smbd --foreground --log-stdout --no-process-group --debuglevel=1
+CMD ./samba.sh
 

@@ -3,6 +3,14 @@ services:
   opl-samba:
     build:
       context: ./
+    environment:
+        # Guest users will have this UID and GID. By default it's 0:0 (root:root).
+        # If your user, not root, owns the OPL folder (e.g. when you keep OPL folder
+        # in HOME), you can change these values to your UID:GID, usually 1000:1000,
+        # or provide env variables with UID and GID when running docker-compose:
+        # FORCE_USER_ID=$(id -u) FORCE_GROUP_ID=$(id -g) docker-compose up
+        FORCE_USER_ID: "${FORCE_USER_ID:-0}"
+        FORCE_GROUP_ID: "${FORCE_GROUP_ID:-0}"
     ports:
       # Samba sends data over this port.
       - "445:445"
@@ -12,8 +20,10 @@ services:
       # - "138:138"
       # - "137:137"
     volumes:
-      # Link samba config file.
-      - "./smb.conf:/etc/samba/smb.conf"
       # Mount OPL folder to /var/PS2SMB.
-      # Update first path with the opl folder location on the host.
-      - "/home/user/PS2SMB:/var/PS2SMB"
+      # Update first path with the OPL folder location on the host.
+      - "/path/to/OPL/folder:/var/PS2SMB"
+      # Uncomment this line when you're experimenting with smb.conf and want to see
+      # changes without rebuilding the image each time.
+      # - "./samba/smb.conf:/etc/samba/smb.conf"
+

@@ -11,6 +11,11 @@ Make sure you have `git`, `docker`, and `docker-compose` installed.
 1. Adjust OPL folder path in `docker-compose.yml`.
 1. Build and run the container with `docker-compose up`.
 
+If your user, not root, ownes the OPL folder, change `FORCE_USER_ID` and `FORCE_GROUP_ID` variables in `docker-compose.yml` or provide them when running `docker-compose`:
+```bash
+FORCE_USER_ID=$(id -u) FORCE_GROUP_ID=$(id -g) docker-compose up
+```
+
 # Troubleshooting
 
 ## My computer does not detect ethernet connection with PS2
